@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace p0Random
+{
+    class Program
+    {
+
+
+        static void Main(string[] args)
+        {
+
+            const int MAX_SIZE = 20;
+
+
+                int n;//declaring variable n
+                Console.WriteLine("Please enter the size of the array: ");//asking user to input index size
+                n = int.Parse(Console.ReadLine());
+                int[] a = new int[n];//array
+            if (n <= MAX_SIZE && n > 1)//coditional statement to initilize random array variables 
+            {
+                Random rand = new Random();
+                for (int i = 0; i < a.Length; i++)
+                {
+                    a[i] = rand.Next(1, 101);
+                }
+            }
+            else
+                return;
+            
+            
+            DisplayArray(a);
+
+            float Ave = Average(a);
+            Console.WriteLine("Average:{0}\n", Ave);
+
+            int maxIndex = Enumerable.Range(0, a.Length).Aggregate((max, i) => a[max] > a[i] ? max : i);//finding the largest value in the array
+            int maxInt = a[maxIndex];
+
+            Console.WriteLine($"Maximum int {maxInt} is found at index {maxIndex}\n");//out the largest int within array
+
+
+
+            Console.Write($" Enter a number to search for: "); 
+            int x = int.Parse(Console.ReadLine());
+            int position = Search(a, x);
+            if (position == -1)
+                Console.WriteLine("Not exists ");
+            else
+            {
+                Console.WriteLine("{0} is found at position {1}", a[position], position);
+            }
+        }
+       
+        static float Average(int[] arr)
+                {
+            float sum = 0;
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                sum = sum + arr[i];
+            }
+            return sum / arr.Length; ;
+        }
+
+        static int Search(int[] arr, int target) //searh array
+        {
+            int i = 0;
+            while (arr[i] != target)
+            {
+                i = i + 1;
+                if (i == arr.Length)
+                    return -1;
+            }
+            return i;
+
+        }
+
+        static void DisplayArray(int[] a) //display array output to terminal 
+        {
+            Console.WriteLine("The array is: ");
+            foreach (int element in a)
+            {
+                Console.Write("{0}  ", element);
+
+            }
+
+
+        }
+
+    }
+}
